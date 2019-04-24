@@ -16,10 +16,12 @@ const server = http.createServer((req, res) => {
   if (url === '/message' && method === 'POST') {
     const body = [];
     req.on('data', chunk => {
+      // stores chunks of data as a buffer
       console.log('-=-=-=-=-CHUNK=-=-=-=-=-=-', chunk);
       body.push(chunk);
     });
     return req.on('end', () => {
+      // concatenates the existing buffer with stored buffer to form a request as a message
       const parsedBody = Buffer.concat(body).toString();
       const message = parsedBody.split('=')[1];
       fs.writeFileSync('message.txt', message);
