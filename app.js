@@ -8,8 +8,13 @@ const app = express();
 const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
 
+//It is use to parse the responses
 app.use(bodyParser.urlencoded({ extended: false }));
 
+//It is used to serve files statically to webpages
+app.use(express.static(path.join(__dirname, 'public')));
+
+//routes
 app.use('/admin', adminRoutes);
 app.use(shopRoutes);
 
